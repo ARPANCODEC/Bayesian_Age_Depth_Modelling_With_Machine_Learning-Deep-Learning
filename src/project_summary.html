@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RBacon ML Project - Complete Simulation Summary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .card h3 {
+            color: #764ba2;
+            margin: 15px 0 10px 0;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .info-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .info-box h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 2px;
+        }
+        
+        .badge-blue {
+            background: #667eea20;
+            color: #667eea;
+        }
+        
+        .badge-purple {
+            background: #764ba220;
+            color: #764ba2;
+        }
+        
+        .badge-green {
+            background: #28a74520;
+            color: #28a745;
+        }
+        
+        .badge-orange {
+            background: #ffc10720;
+            color: #856404;
+        }
+        
+        .step {
+            display: flex;
+            margin: 20px 0;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .metric-card h3 {
+            color: white;
+            font-size: 14px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        
+        .metric-card p {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .flowchart {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .flow-step {
+            display: inline-block;
+            background: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .arrow {
+            font-size: 20px;
+            margin: 0 10px;
+            color: #667eea;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+            padding: 20px;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+            .flow-step {
+                display: block;
+                margin: 10px;
+            }
+            .arrow {
+                display: block;
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🪨 RBacon ML Project Simulation</h1>
+            <p>Complete Workflow: From Sediment Data to AI-Powered Age-Depth Predictions</p>
+        </div>
+        
+        <!-- Overview Section -->
+        <div class="card">
+            <h2>📋 Project Overview</h2>
+            <p>This project simulates the complete workflow of using <strong>RBacon</strong> (Bayesian Age-Depth Modeling) combined with <strong>Machine Learning</strong> to predict age-depth relationships from sediment core data. The system takes raw laboratory measurements and produces AI-powered predictions of sediment ages with confidence intervals.</p>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h3>Overall Accuracy</h3>
+                    <p>91.5%</p>
+                </div>
+                <div class="metric-card">
+                    <h3>Training Samples</h3>
+                    <p>~10,000</p>
+                </div>
+                <div class="metric-card">
+                    <h3>Model Parameters</h3>
+                    <p>135K</p>
+                </div>
+                <div class="metric-card">
+                    <h3>Output Targets</h3>
+                    <p>7</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Workflow Section -->
+        <div class="card">
+            <h2>🔄 Complete Workflow Simulation</h2>
+            <div class="flowchart">
+                <div class="flow-step">📊 Lab Data Collection</div>
+                <span class="arrow">→</span>
+                <div class="flow-step">🔬 RBacon Processing</div>
+                <span class="arrow">→</span>
+                <div class="flow-step">📁 Dataset Preparation</div>
+                <span class="arrow">→</span>
+                <div class="flow-step">🤖 ML Model Training</div>
+                <span class="arrow">→</span>
+                <div class="flow-step">🎯 Predictions</div>
+                <span class="arrow">→</span>
+                <div class="flow-step">📊 Visualization</div>
+            </div>
+        </div>
+        
+        <!-- Step 1: Lab Data Collection -->
+        <div class="card">
+            <h2>🔬 Step 1: Laboratory Data Collection</h2>
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <p>Sediment cores are collected from field sites and analyzed in the laboratory to obtain:</p>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li><strong>Depth (cm)</strong> - Physical depth in the sediment core</li>
+                        <li><strong>Age (years)</strong> - Radiocarbon or other dating methods</li>
+                        <li><strong>Error (± years)</strong> - Analytical uncertainty in dating</li>
+                        <li><strong>Lab ID</strong> - Unique identifier for each sample</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Example Input Data Format:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>labID</th>
+                        <th>depth (cm)</th>
+                        <th>age (years)</th>
+                        <th>error (± years)</th>
+                        <th>cc (core code)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>398155</td><td>12.0</td><td>50</td><td>80</td><td>1</td></tr>
+                    <tr><td>398156</td><td>14.5</td><td>385</td><td>60</td><td>1</td></tr>
+                    <tr><td>398157</td><td>18.9</td><td>590</td><td>90</td><td>1</td></tr>
+                    <tr><td>398158</td><td>20.5</td><td>1145</td><td>85</td><td>1</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Step 2: RBacon Processing -->
+        <div class="card">
+            <h2>📊 Step 2: RBacon Age-Depth Modeling</h2>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <p>RBacon (Bayesian Age-Depth Modeling) processes the raw data to generate:</p>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li><strong>Mean Age</strong> - Average predicted age at each depth</li>
+                        <li><strong>Median Age</strong> - Median predicted age</li>
+                        <li><strong>95% Confidence Intervals</strong> - Lower and upper bounds (lo95, hi95)</li>
+                        <li><strong>CI Width</strong> - Uncertainty range (hi95 - lo95)</li>
+                        <li><strong>Accumulation Rate</strong> - Sediment accumulation rate (%)</li>
+                        <li><strong>Sedimentation Rate</strong> - Rate of sediment deposition (cm/year)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <h4>💡 RBacon Output Example</h4>
+                <p>For a sample at depth 143cm with age 1120±30 years, RBacon produces:<br>
+                <strong>Mean Age:</strong> 2,626 years | <strong>95% CI:</strong> 1,990 - 4,095 years<br>
+                <strong>Accumulation Rate:</strong> 23.8% | <strong>Sedimentation Rate:</strong> 0.22 cm/year</p>
+            </div>
+        </div>
+        
+        <!-- Step 3: Dataset Preparation -->
+        <div class="card">
+            <h2>📁 Step 3: Dataset Preparation for ML Training</h2>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <p>The RBacon outputs are organized into a structured dataset with:</p>
+                </div>
+            </div>
+            
+            <div class="grid">
+                <div class="info-box">
+                    <h4>📥 Input Features (3)</h4>
+                    <p><span class="badge badge-blue">depth</span> - Sediment depth (cm)<br>
+                    <span class="badge badge-blue">age</span> - Measured age (years)<br>
+                    <span class="badge badge-blue">error</span> - Dating uncertainty (± years)</p>
+                </div>
+                <div class="info-box">
+                    <h4>📤 Output Targets (7)</h4>
+                    <p><span class="badge badge-purple">mean_age</span> - Predicted mean age<br>
+                    <span class="badge badge-purple">median_age</span> - Predicted median age<br>
+                    <span class="badge badge-purple">lo95</span> - Lower 95% CI<br>
+                    <span class="badge badge-purple">hi95</span> - Upper 95% CI<br>
+                    <span class="badge badge-purple">ci_width</span> - CI width<br>
+                    <span class="badge badge-purple">acc_rate</span> - Accumulation rate<br>
+                    <span class="badge badge-purple">sed_rate</span> - Sedimentation rate</p>
+                </div>
+            </div>
+            
+            <h3>Training Dataset Statistics:</h3>
+            <table>
+                <tr><td><strong>Total Samples</strong></td><td>~10,000</td></tr>
+                <tr><td><strong>Training Split</strong></td><td>80% (8,000 samples)</td></tr>
+                <tr><td><strong>Testing Split</strong></td><td>20% (2,000 samples)</td></tr>
+                <tr><td><strong>Data Normalization</strong></td><td>StandardScaler (mean=0, std=1)</td></tr>
+            </table>
+        </div>
+        
+        <!-- Step 4: ML Model Architecture -->
+        <div class="card">
+            <h2>🤖 Step 4: MLP Neural Network Model</h2>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <p>A <strong>Multi-Layer Perceptron (MLP)</strong> neural network with 4 hidden layers:</p>
+                </div>
+            </div>
+            
+            <div class="flowchart">
+                <div class="flow-step">Input (3)</div>
+                <span class="arrow">→</span>
+                <div class="flow-step">Dense 128 + BN + Dropout</div>
+                <span class="arrow">→</span>
+                <div class="flow-step">Dense 256 + BN + Dropout</div>
+                <span class="arrow">→</span>
+                <div class="flow-step">Dense 256 + BN + Dropout</div>
+                <span class="arrow">→</span>
+                <div class="flow-step">Dense 128 + BN + Dropout</div>
+                <span class="arrow">→</span>
+                <div class="flow-step">Output (7)</div>
+            </div>
+            
+            <div class="grid">
+                <div class="info-box">
+                    <h4>🏗️ Architecture Details</h4>
+                    <p><strong>Total Parameters:</strong> ~135,000<br>
+                    <strong>Activation:</strong> ReLU (hidden), Linear (output)<br>
+                    <strong>Batch Normalization:</strong> Yes<br>
+                    <strong>Dropout Rate:</strong> 0.2 (0.1 for last layer)<br>
+                    <strong>Optimizer:</strong> Adam (lr=0.001)<br>
+                    <strong>Loss Function:</strong> Mean Squared Error (MSE)</p>
+                </div>
+                <div class="info-box">
+                    <h4>⚙️ Training Configuration</h4>
+                    <p><strong>Epochs:</strong> 300 (early stopping at 156)<br>
+                    <strong>Batch Size:</strong> 32<br>
+                    <strong>Validation Split:</strong> 20%<br>
+                    <strong>Learning Rate Schedule:</strong> ReduceLROnPlateau<br>
+                    <strong>Early Stopping:</strong> Patience=30 epochs</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step 5: Model Performance -->
+        <div class="card">
+            <h2>📈 Step 5: Model Performance Results</h2>
+            
+            <h3>Overall Metrics</h3>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h3>R² Score</h3>
+                    <p>0.915</p>
+                </div>
+                <div class="metric-card">
+                    <h3>MAE</h3>
+                    <p>2,518 yrs</p>
+                </div>
+                <div class="metric-card">
+                    <h3>RMSE</h3>
+                    <p>6,491 yrs</p>
+                </div>
+                <div class="metric-card">
+                    <h3>Explained Variance</h3>
+                    <p>91.5%</p>
+                </div>
+            </div>
+            
+            <h3>Per-Target Performance</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Target Variable</th>
+                        <th>R² Score</th>
+                        <th>Performance Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>mean_age</td><td>0.997</td><td><span class="badge badge-green">⭐⭐⭐ Excellent</span></td></tr>
+                    <tr><td>median_age</td><td>0.992</td><td><span class="badge badge-green">⭐⭐⭐ Excellent</span></td></tr>
+                    <tr><td>lo95</td><td>0.991</td><td><span class="badge badge-green">⭐⭐⭐ Excellent</span></td></tr>
+                    <tr><td>hi95</td><td>0.997</td><td><span class="badge badge-green">⭐⭐⭐ Excellent</span></td></tr>
+                    <tr><td>ci_width</td><td>0.997</td><td><span class="badge badge-green">⭐⭐⭐ Excellent</span></td></tr>
+                    <tr><td>acc_rate</td><td>0.576</td><td><span class="badge badge-orange">⭐ Fair (Needs Improvement)</span></td></tr>
+                    <tr><td>sed_rate</td><td>0.854</td><td><span class="badge badge-green">⭐⭐ Good</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- How Predictions Work -->
+        <div class="card">
+            <h2>🎯 How the Model Makes Predictions</h2>
+            
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <strong>Input Processing:</strong> New sediment data (depth, age, error) is scaled using the same StandardScaler from training.
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <strong>Forward Pass:</strong> Scaled inputs pass through 4 hidden layers with ReLU activation, batch normalization, and dropout.
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <strong>Output Generation:</strong> The output layer produces 7 values (mean_age, median_age, lo95, hi95, ci_width, acc_rate, sed_rate).
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <strong>Inverse Scaling:</strong> Predictions are transformed back to original units using the output scaler.
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <strong>Validation:</strong> Automated checks ensure confidence intervals are valid (Hi95 > Lo95) and ages are non-negative.
+                </div>
+            </div>
+            
+            <div class="info-box" style="margin-top: 20px;">
+                <h4>🧠 Example Prediction</h4>
+                <p><strong>Input:</strong> depth=143cm, age=1120±30 years<br>
+                <strong>Predicted Output:</strong><br>
+                • Mean Age: 2,626 years<br>
+                • Median Age: 2,275 years<br>
+                • 95% CI: 1,990 - 4,095 years<br>
+                • Accumulation Rate: 23.8%<br>
+                • Sedimentation Rate: 0.22 cm/year</p>
+            </div>
+        </div>
+        
+        <!-- Flask Web Application -->
+        <div class="card">
+            <h2>🌐 Web Application Interface</h2>
+            <p>A complete Flask web application provides an intuitive interface for:</p>
+            
+            <div class="grid">
+                <div class="info-box">
+                    <h4>📤 Upload & Predict</h4>
+                    <p>Drag-and-drop CSV upload with automatic prediction generation and visualization.</p>
+                </div>
+                <div class="info-box">
+                    <h4>📊 Results Visualization</h4>
+                    <p>Interactive plots showing age-depth relationships, confidence intervals, and rate predictions.</p>
+                </div>
+                <div class="info-box">
+                    <h4>📜 Prediction History</h4>
+                    <p>All previous predictions are stored locally and can be reloaded for review.</p>
+                </div>
+                <div class="info-box">
+                    <h4>💾 Export Results</h4>
+                    <p>Download predictions as CSV files for further analysis in Excel or other tools.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Key Findings -->
+        <div class="card">
+            <h2>🔑 Key Findings & Insights</h2>
+            
+            <div class="step">
+                <div class="step-number">✓</div>
+                <div class="step-content">
+                    <strong>Age predictions are extremely accurate (R² > 0.99)</strong> - The model excels at predicting mean age, median age, and confidence intervals.
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">⚠️</div>
+                <div class="step-content">
+                    <strong>Accumulation rate predictions need improvement (R² = 0.58)</strong> - More training data or different features may be needed.
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">📊</div>
+                <div class="step-content">
+                    <strong>Sedimentation rate predictions are good (R² = 0.85)</strong> - Usable for most applications with caution.
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">⚠️</div>
+                <div class="step-content">
+                    <strong>Model struggles with very deep/old samples</strong> - Negative age predictions occur for depths beyond training range.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recommendations -->
+        <div class="card">
+            <h2>💡 Recommendations</h2>
+            
+            <div class="grid">
+                <div class="info-box">
+                    <h4>✅ Production Ready</h4>
+                    <p>Age predictions (mean_age, median_age, lo95, hi95, ci_width) are production-ready with >99% accuracy.</p>
+                </div>
+                <div class="info-box">
+                    <h4>⚠️ Use with Caution</h4>
+                    <p>Accumulation rate predictions should be used cautiously (58% accuracy). Consider additional validation.</p>
+                </div>
+                <div class="info-box">
+                    <h4>📊 Future Improvements</h4>
+                    <p>Add more training data for deep sediments, implement physical constraints, consider ensemble methods.</p>
+                </div>
+                <div class="info-box">
+                    <h4>🔧 Deployment</h4>
+                    <p>The Flask web app is ready for deployment. Can be containerized with Docker for production use.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Technology Stack -->
+        <div class="card">
+            <h2>🛠️ Technology Stack</h2>
+            
+            <div class="grid">
+                <div class="info-box">
+                    <h4>🐍 Backend</h4>
+                    <p>Python 3.10+, TensorFlow 2.18, Flask, Pandas, NumPy, Scikit-learn</p>
+                </div>
+                <div class="info-box">
+                    <h4>🎨 Frontend</h4>
+                    <p>HTML5, CSS3, JavaScript, Matplotlib, Seaborn</p>
+                </div>
+                <div class="info-box">
+                    <h4>📁 Data Processing</h4>
+                    <p>Pandas, NumPy, StandardScaler, Joblib</p>
+                </div>
+                <div class="info-box">
+                    <h4>📊 Visualization</h4>
+                    <p>Matplotlib, Seaborn, Plotly (for interactive plots)</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- File Structure -->
+        <div class="card">
+            <h2>📁 Project File Structure</h2>
+            <pre style="background: #f8f9fa; padding: 15px; border-radius: 10px; overflow-x: auto; font-size: 12px;">
+36.rbacon_ml_project/
+├── data/
+│   ├── processed/final_training_dataset.csv
+│   └── raw/input_csv_rbacon_files/*.csv
+├── models/
+│   ├── mlp_model_final.keras
+│   ├── input_scaler.pkl
+│   └── output_scaler.pkl
+├── outputs/
+│   ├── prediction_results_*.csv
+│   └── *_plots.png
+├── reports/
+│   └── project_report_*.html
+├── app/
+│   ├── app.py
+│   ├── templates/index.html
+│   ├── static/css/style.css
+│   ├── static/js/script.js
+│   ├── uploads/
+│   └── results/
+└── src/
+    ├── train_mlp.py
+    ├── predict_new_data.py
+    └── report.py
+            </pre>
+        </div>
+        
+        <div class="footer">
+            <p>RBacon ML Project | Complete Simulation Summary</p>
+            <p>Generated: April 2025 | Model Version: 2.0</p>
+        </div>
+    </div>
+</body>
+</html>

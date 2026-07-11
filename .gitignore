@@ -1,0 +1,129 @@
+# ==================================================
+# VIRTUAL ENVIRONMENT - DO NOT PUSH
+# ==================================================
+venv/
+env/
+ENV/
+.venv/
+env.bak/
+venv.bak/
+
+# ==================================================
+# MODEL FILES - DO NOT PUSH (Large files >100MB)
+# ==================================================
+*.keras
+*.h5
+*.hdf5
+*.pkl
+*.joblib
+*.ckpt
+*.meta
+*.index
+*.data-*
+*.pb
+*.pbtxt
+saved_model/
+
+# ==================================================
+# PYTHON CACHE
+# ==================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+
+# ==================================================
+# LOGS & TEMPORARY FILES
+# ==================================================
+*.log
+logs/
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# ==================================================
+# JUPYTER NOTEBOOKS
+# ==================================================
+.ipynb_checkpoints/
+*.ipynb
+
+# ==================================================
+# IDE / EDITOR SETTINGS
+# ==================================================
+.vscode/
+.idea/
+*.iml
+*.iws
+*.ipr
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.settings/
+
+# ==================================================
+# OS GENERATED FILES
+# ==================================================
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ==================================================
+# TESTING & COVERAGE
+# ==================================================
+.pytest_cache/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# ==================================================
+# DISTRIBUTION & BUILD
+# ==================================================
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ==================================================
+# MISC
+# ==================================================
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.db
+*.sqlite
+*.sqlite3
+*.dump
+.python-version
+pip-log.txt
+pip-delete-this-directory.txt
