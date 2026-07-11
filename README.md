@@ -15,7 +15,6 @@
 - 📊 **7 Target Predictions**: mean_age, median_age, lo95, hi95, ci_width, acc_rate, sed_rate
 - 🌊 **Tested on 10+ Real Lakes**: Validated on unknown lake datasets
 - 🚀 **Fast Predictions**: <1 second per sample
-- 🌐 **Web Interface**: Flask app for easy CSV upload and predictions
 - 📈 **Comprehensive Reports**: HTML, Markdown, and CSV outputs
 - 🔧 **Easy to Use**: One-command predictions
 
